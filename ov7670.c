@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-#include "ov7670.h"
+#include "camera/ov7670.h"
 
 // REQUIRED EXTERN FUNCTIONS -----------------------------------------------
 

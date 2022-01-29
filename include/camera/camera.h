@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 
+#include "hardware/dma.h"
 #include "hardware/pio.h"
 
 #include "camera/ov7670.h"
