@@ -58,7 +58,7 @@ static const OV7670_command
             {0xFF, 0xFF}},
     OV7670_init[] = {
         {OV7670_REG_TSLB, OV7670_TSLB_YLAST},    // No auto window
-        {OV7670_REG_COM10, OV7670_COM10_VS_NEG}, // -VSYNC (req by SAMD PCC)
+        //{OV7670_REG_COM10, OV7670_COM10_VS_NEG}, // -VSYNC (req by SAMD PCC)
         {OV7670_REG_SLOP, 0x20},
         {OV7670_REG_GAM_BASE, 0x1C},
         {OV7670_REG_GAM_BASE + 1, 0x28},
@@ -78,9 +78,12 @@ static const OV7670_command
         {OV7670_REG_COM8,
          OV7670_COM8_FASTAEC | OV7670_COM8_AECSTEP | OV7670_COM8_BANDING},
         {OV7670_REG_GAIN, 0x00},
-        {OV7670_COM2_SSLEEP, 0x00},
+        {OV7670_REG_COM2, 0x00},
         {OV7670_REG_COM4, 0x00},
         {OV7670_REG_COM9, 0x20}, // Max AGC value
+        {OV7670_REG_COM11, (1 << 3)}, // 50Hz
+        //{0x9D, 99}, // Banding filter for 50 Hz at 15.625 MHz
+        {0x9D, 89}, // Banding filter for 50 Hz at 13.888 MHz
         {OV7670_REG_BD50MAX, 0x05},
         {OV7670_REG_BD60MAX, 0x07},
         {OV7670_REG_AEW, 0x75},
@@ -96,7 +99,7 @@ static const OV7670_command
         {OV7670_REG_HAECC7, 0x94},
         {OV7670_REG_COM8, OV7670_COM8_FASTAEC | OV7670_COM8_AECSTEP |
                               OV7670_COM8_BANDING | OV7670_COM8_AGC |
-                              OV7670_COM8_AEC},
+                              OV7670_COM8_AEC | OV7670_COM8_AWB },
         {OV7670_REG_COM5, 0x61},
         {OV7670_REG_COM6, 0x4B},
         {0x16, 0x02},            // Reserved register?
@@ -146,14 +149,15 @@ static const OV7670_command
         {OV7670_REG_LCC7, 0x08},
         {OV7670_REG_AWBCTR3, 0x0A},
         {OV7670_REG_AWBCTR2, 0x55},
-        {OV7670_REG_MTX1, 0x80},
-        {OV7670_REG_MTX2, 0x80},
-        {OV7670_REG_MTX3, 0x00},
-        {OV7670_REG_MTX4, 0x22},
-        {OV7670_REG_MTX5, 0x5E},
-        {OV7670_REG_MTX6, 0x80}, // 0x40?
+        //{OV7670_REG_MTX1, 0x80},
+        //{OV7670_REG_MTX2, 0x80},
+        //{OV7670_REG_MTX3, 0x00},
+        //{OV7670_REG_MTX4, 0x22},
+        //{OV7670_REG_MTX5, 0x5E},
+        //{OV7670_REG_MTX6, 0x80}, // 0x40?
         {OV7670_REG_AWBCTR1, 0x11},
-        {OV7670_REG_AWBCTR0, 0x9F}, // Or use 0x9E for advance AWB
+        //{OV7670_REG_AWBCTR0, 0x9F}, // Or use 0x9E for advance AWB
+        {OV7670_REG_AWBCTR0, 0x9E}, // Or use 0x9E for advance AWB
         {OV7670_REG_BRIGHT, 0x00},
         {OV7670_REG_CONTRAS, 0x40},
         {OV7670_REG_CONTRAS_CENTER, 0x80}, // 0x40?
@@ -169,10 +173,12 @@ OV7670_status OV7670_begin(OV7670_host *host, OV7670_colorspace colorspace,
   // Do device-specific (but platform-agnostic) setup. e.g. on SAMD this
   // function will fiddle registers to start a timer for XCLK output and
   // enable the parallel capture peripheral.
+  /*
   status = OV7670_arch_begin(host);
   if (status != OV7670_STATUS_OK) {
     return status;
   }
+  */
 
   // Unsure of camera startup time from beginning of input clock.
   // Let's guess it's similar to tS:REG (300 ms) from datasheet.
@@ -194,14 +200,12 @@ OV7670_status OV7670_begin(OV7670_host *host, OV7670_colorspace colorspace,
   } else { // Soft reset, doesn't seem reliable, might just need more delay?
     OV7670_write_register(host->platform, OV7670_REG_COM7, OV7670_COM7_RESET);
   }
-  OV7670_delay_ms(1); // Datasheet: tS:RESET = 1 ms
+  OV7670_delay_ms(1000); // Datasheet: tS:RESET = 1 ms
 
-  (void)OV7670_set_fps(host->platform, fps); // Timing
-  if (colorspace == OV7670_COLOR_RGB) {
-    OV7670_write_list(host->platform, OV7670_rgb);
-  } else {
-    OV7670_write_list(host->platform, OV7670_yuv);
-  }
+  //(void)OV7670_set_fps(host->platform, fps); // Timing
+  OV7670_write_register(host->platform, OV7670_REG_CLKRC, 1); // CLK * 4
+  OV7670_write_register(host->platform, OV7670_REG_DBLV, 1 << 6); // CLK / 4
+  OV7670_set_format(host->platform, colorspace);
   OV7670_write_list(host->platform, OV7670_init); // Other config
   OV7670_set_size(host->platform, size);          // Frame size
 
@@ -223,6 +227,16 @@ OV7670_status OV7670_begin(OV7670_host *host, OV7670_colorspace colorspace,
 // rates because it varies with architecture, depending on OV7670_XCLK_HZ.
 // If platform is NULL, no registers are set, a fps request/return can be
 // evaluated without reconfiguring the camera, or without it even started.
+
+OV7670_status OV7670_set_format(void *platform, OV7670_colorspace colorspace) {
+  if (colorspace == OV7670_COLOR_RGB) {
+    OV7670_write_list(platform, OV7670_rgb);
+  } else {
+    OV7670_write_list(platform, OV7670_yuv);
+  }
+
+  return OV7670_STATUS_OK;
+}
 
 float OV7670_set_fps(void *platform, float fps) {
 

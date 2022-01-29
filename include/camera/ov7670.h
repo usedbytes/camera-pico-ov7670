@@ -4,9 +4,11 @@
 
 #pragma once
 
+#include "pico/stdlib.h"
+
 // IMPORTANT: #include ALL of the arch-specific .h files here.
 // They have #ifdef checks to only take effect on the active architecture.
-#include "arch/samd51.h"
+//#include "arch/samd51.h"
 
 #if defined(ARDUINO)
 #include <Arduino.h>
@@ -22,7 +24,15 @@
 // #defined here as with Arduino above. If platform does NOT provide some
 // or all of these, they should go in the device-specific .c file with a
 // !defined(ARDUINO) around them.
+#define OV7670_delay_ms(x) sleep_ms(x)
+#define OV7670_pin_output(pin) { gpio_init(pin); gpio_set_dir(pin, GPIO_OUT); }
+#define OV7670_pin_write(pin, hi) gpio_put(pin, !!hi)
 #endif // end platforms
+
+#define OV7670_XCLK_HZ 15625000
+
+typedef int OV7670_pin;
+typedef int OV7670_arch;
 
 /** Status codes returned by some functions */
 typedef enum {
@@ -298,6 +308,8 @@ extern "C" {
 // architecture-specific init function.
 OV7670_status OV7670_begin(OV7670_host *host, OV7670_colorspace colorspace,
                            OV7670_size size, float fps);
+
+OV7670_status OV7670_set_format(void *platform, OV7670_colorspace colorspace);
 
 // Configure camera frame rate. Actual resulting frame rate (returned) may
 // be different depending on available clock frequencies. Result will only
