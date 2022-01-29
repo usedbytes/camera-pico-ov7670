@@ -1,0 +1,173 @@
+;
+; Copyright (c) 2021 Brian Starkey <stark3y@gmail.com>
+;
+; SPDX-License-Identifier: BSD-3-Clause
+;
+
+.define PUBLIC PIN_OFFS_D0       0
+.define PUBLIC PIN_OFFS_CLK      1
+.define PUBLIC PIN_OFFS_VSYNC    2
+.define PUBLIC PIN_OFFS_HREF     3
+.define PUBLIC PIN_OFFS_PXCLK    4
+
+.define BYTE_IRQ_BASE            4
+
+.program camera_pio_shift_byte
+.side_set 1 opt
+
+.wrap_target
+set X 7                                 ; Load the bit counter
+wait 1 irq BYTE_IRQ_BASE rel            ; Wait to be triggered - waits for IRQ 4 + SM number
+wait 1 pin PIN_OFFS_PXCLK [5]           ; Wait for PXCLK to go high (otherwise inputs are "transparent")
+
+nop side 0x1 [1]                        ; side set CLK
+loop_bit:
+in PINS 1 side 0x0 [0]                  ; Grab a bit of data, clear CLK
+jmp x-- loop_bit side 0x1 [1]
+
+wait 0 pin PIN_OFFS_PXCLK side 0x0      ; Wait for PXCLK to go low
+irq set BYTE_IRQ_BASE
+.wrap
+
+% c-sdk {
+static inline pio_sm_config camera_pio_get_shift_byte_sm_config(PIO pio, uint sm, uint offset, uint base_pin, uint bpp)
+{
+    pio_sm_config c = camera_pio_shift_byte_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, base_pin);
+    sm_config_set_in_shift(&c, true, true, bpp);
+    sm_config_set_sideset_pins(&c, base_pin + PIN_OFFS_CLK);
+
+    return c;
+}
+%}
+
+.program camera_pio_frame
+.side_set 1 opt
+
+.wrap_target
+pull                                   ; Pull number of lines
+out Y, 32                              ; Store number of lines in Y
+pull                                   ; Pull "pixels" per line. Keep this in OSR to reload X each line
+
+wait 1 pin PIN_OFFS_VSYNC              ; Wait for start of frame
+
+loop_line:
+mov X, OSR                             ; Store number of pixels in X
+wait 1 pin PIN_OFFS_HREF [2]           ; Wait for start of line
+
+; The pixel loop body can be patched for different pixel formats / plane
+; layouts. Up to 4 bytes per pixel.
+; For a format with less than 4 bytes per pixel, some of these commands will
+; be patched to NOPs. For multi-plane formats, other SMs will be triggered
+; as appropriate
+; By default, this is set up for 2-bytes per pixel, in a single plane,
+; handled by SM1
+public loop_pixel:
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 1)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 2)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 3)
+wait 1 irq BYTE_IRQ_BASE
+jmp x-- loop_pixel
+
+wait 0 pin PIN_OFFS_HREF               ; Wait for end of line
+jmp y-- loop_line
+
+irq wait 0                             ; Signal the CPU that we're done, wait for ack
+.wrap
+
+% c-sdk {
+static inline void camera_pio_init_gpios(PIO pio, uint sm, uint base_pin)
+{
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, 5, false);
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin + PIN_OFFS_CLK, 1, true);
+
+    for (uint i = 0; i < 5; i++) {
+        pio_gpio_init(pio, i + base_pin);
+    }
+
+    pio->input_sync_bypass = (1 << (base_pin + PIN_OFFS_D0));
+}
+
+static inline pio_sm_config camera_pio_get_frame_sm_config(PIO pio, uint sm, uint offset, uint base_pin)
+{
+    pio_sm_config c = camera_pio_frame_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, base_pin);
+    sm_config_set_out_shift(&c, true, false, 0);
+    sm_config_set_sideset_pins(&c, base_pin + PIN_OFFS_CLK);
+
+    return c;
+}
+
+static inline bool camera_pio_frame_done(PIO pio)
+{
+    return pio_interrupt_get(pio, 0);
+}
+
+static inline void camera_pio_wait_for_frame_done(PIO pio)
+{
+    while (!camera_pio_frame_done(pio));
+}
+
+static inline void camera_pio_trigger_frame(PIO pio, uint32_t cols, uint32_t rows)
+{
+    pio_interrupt_clear(pio, 0);
+    pio_sm_put_blocking(pio, 0, rows - 1);
+    pio_sm_put_blocking(pio, 0, cols - 1);
+}
+%}
+
+.program pixel_loop_yuyv
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 1)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 2)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 3)
+wait 1 irq BYTE_IRQ_BASE
+
+.program pixel_loop_rgb565
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 1)
+wait 1 irq BYTE_IRQ_BASE
+nop
+nop
+nop
+nop
+
+// Two-plane YUV: [YY, UV]
+.program pixel_loop_nv16
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 2)           ; Trigger byte SM2 (byte 1)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 2)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 2)           ; Trigger byte SM2 (byte 3)
+wait 1 irq BYTE_IRQ_BASE
+
+// Three-plane YUV: [YY, U, V]
+.program pixel_loop_yu16
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 2)           ; Trigger byte SM2 (byte 1)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 2)
+wait 1 irq BYTE_IRQ_BASE
+irq wait (BYTE_IRQ_BASE + 3)           ; Trigger byte SM3 (byte 3)
+wait 1 irq BYTE_IRQ_BASE
+
+% c-sdk {
+static inline void camera_pio_patch_pixel_loop(PIO pio, uint offset, const pio_program_t *loop) {
+    uint i;
+    // TODO: Assert that length of program is 8?
+    for (i = 0; i < loop->length; i++) {
+        pio->instr_mem[offset + camera_pio_frame_offset_loop_pixel + i] = loop->instructions[i];
+    }
+}
+%}
