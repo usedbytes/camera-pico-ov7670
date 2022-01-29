@@ -36,14 +36,10 @@ uint8_t format_bytes_per_pixel(uint32_t format, uint8_t plane)
 uint8_t format_hsub(uint32_t format, uint8_t plane)
 {
 	switch (format) {
-	case FORMAT_YUYV:
-		/* Fallthrough */
-	case FORMAT_RGB565:
-		return 1;
 	case FORMAT_YUV422:
 		return plane ? 2 : 1;
 	default:
-		return 0;
+		return 1;
 	}
 }
 

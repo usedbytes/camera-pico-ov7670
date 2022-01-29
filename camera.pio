@@ -61,7 +61,7 @@ wait 1 pin PIN_OFFS_HREF [2]           ; Wait for start of line
 ; be patched to NOPs. For multi-plane formats, other SMs will be triggered
 ; as appropriate
 ; By default, this is set up for 2-bytes per pixel, in a single plane,
-; handled by SM1
+; handled by SM1, transferring "chunks" of 4 bytes (2 pixels)
 public loop_pixel:
 irq wait (BYTE_IRQ_BASE + 1)           ; Trigger byte SM1 (byte 0)
 wait 1 irq BYTE_IRQ_BASE
