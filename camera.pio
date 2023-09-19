@@ -79,13 +79,11 @@ irq wait 0                             ; Signal the CPU that we're done, wait fo
 % c-sdk {
 static inline void camera_pio_init_gpios(PIO pio, uint sm, uint base_pin)
 {
-    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, 5, false);
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, (3 + 8), false);
 
-    for (uint i = 0; i < 5; i++) {
+    for (uint i = 0; i < (3 + 8); i++) {
         pio_gpio_init(pio, i + base_pin);
     }
-
-    pio->input_sync_bypass = (1 << (base_pin + PIN_OFFS_D0));
 }
 
 static inline pio_sm_config camera_pio_get_frame_sm_config(PIO pio, uint sm, uint offset, uint base_pin)
