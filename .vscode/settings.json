@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "ov7670.h": "c"
+        "ov7670.h": "c",
+        "format.h": "c"
     }
 }

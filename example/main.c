@@ -14,7 +14,7 @@
 #include "camera/format.h"
 
 #define CAMERA_PIO      pio0
-#define CAMERA_BASE_PIN 16
+#define CAMERA_BASE_PIN 10
 #define CAMERA_XCLK_PIN 21
 #define CAMERA_SDA      0
 #define CAMERA_SCL      1

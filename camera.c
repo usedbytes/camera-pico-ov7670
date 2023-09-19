@@ -58,7 +58,7 @@ static void camera_pio_init(struct camera *camera)
 
 	hard_assert(pio == pio0 || pio == pio1);
 
-	camera->shift_byte_offset = pio_add_program(pio, &camera_pio_shift_byte_program);
+	camera->shift_byte_offset = pio_add_program(pio, &camera_pio_byte_program);
 	camera->frame_offset = pio_add_program(pio, &camera_pio_frame_program);
 	for (int i = 0; i < 4; i++) {
 		camera_pio_init_gpios(pio, i, platform->base_pin);
@@ -278,7 +278,7 @@ int camera_configure(struct camera *camera, uint32_t format, uint16_t width, uin
 		camera->config.dma_offset[i] = 4 - xfer_bytes,
 		camera->config.dma_transfers[i] = format_plane_size(format, i, width, height) / xfer_bytes,
 
-		camera->config.sm_cfgs[i + 1] = camera_pio_get_shift_byte_sm_config(platform->pio, i + 1,
+		camera->config.sm_cfgs[i + 1] = camera_pio_get_byte_sm_config(platform->pio, i + 1,
 							camera->shift_byte_offset, platform->base_pin,
 							xfer_bytes * 8);
 	}
