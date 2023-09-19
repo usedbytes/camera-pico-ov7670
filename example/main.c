@@ -72,26 +72,30 @@ int main() {
 
 	struct camera_buffer *buf = camera_buffer_alloc(FORMAT_YUV422, width, height);
 	assert(buf);
-
+	int frame_id = 0;
 	while (1) {
-		printf("Capturing...\n");
+		printf("[%03dx%03d] %04d$", width, height, frame_id);
 		gpio_put(LED_PIN, 1);
 		ret = camera_capture_blocking(&camera, buf, true);
 		gpio_put(LED_PIN, 0);
 		if (ret != 0) {
 			printf("Capture error: %d\n", ret);
 		} else {
-			printf("Capture success\n");
+			// printf("Capture success\n");
 			int y, x;
 			for (y = 0; y < height; y++) {
 				char row[width];
-				for (x = 0; x < height; x++) {
+				for (x = 0; x < width; x++) {
 					uint8_t v = buf->data[0][buf->strides[0] * y + x];
-					v /= 26;
-					row[x] = charmap[v];
+					char snum[4];
+    				int n = sprintf(snum, "%d", v);
+					printf(" %s", snum);
 				}
-				printf("%s\n", row);
 			}
+			printf("\n");
+			frame_id++;
+			if (frame_id >= 1000)
+				frame_id = 0;
 		}
 
 		sleep_ms(5000);
