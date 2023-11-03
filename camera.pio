@@ -1,42 +1,33 @@
-;
-; Copyright (c) 2021 Brian Starkey <stark3y@gmail.com>
-;
-; SPDX-License-Identifier: BSD-3-Clause
-;
-
 .define PUBLIC PIN_OFFS_VSYNC    0
 .define PUBLIC PIN_OFFS_HREF     1
-.define PUBLIC _                 2
-.define PUBLIC PIN_OFFS_PXCLK    3
 
-.define PUBLIC PIN_OFFS_D0       4
-.define PUBLIC PIN_OFFS_D1       5
-.define PUBLIC PIN_OFFS_D2       6
-.define PUBLIC PIN_OFFS_D3       7
-.define PUBLIC PIN_OFFS_D4       8
-.define PUBLIC PIN_OFFS_D5       9
-.define PUBLIC PIN_OFFS_D6       10
-.define PUBLIC PIN_OFFS_D7       11
+.define PUBLIC PIN_OFFS_D0       0
+.define PUBLIC PIN_OFFS_D1       1
+.define PUBLIC PIN_OFFS_D2       2
+.define PUBLIC PIN_OFFS_D3       3
+.define PUBLIC PIN_OFFS_D4       4
+.define PUBLIC PIN_OFFS_D5       5
+.define PUBLIC PIN_OFFS_D6       6
+.define PUBLIC PIN_OFFS_D7       7
+.define PUBLIC PIN_OFFS_PXCLK    8
 
 .define BYTE_IRQ_BASE            4
-
 
 .program camera_pio_byte
 .wrap_target
 wait 1 irq BYTE_IRQ_BASE rel            ; Wait to be triggered - waits for IRQ 4 + SM number
-wait 1 pin PIN_OFFS_PXCLK [5]           ; Wait for PXCLK to go high (otherwise inputs are "transparent")
+wait 1 pin PIN_OFFS_PXCLK [1]           ; Wait for PXCLK to go high (otherwise inputs are "transparent")
 in PINS, 8
 wait 0 pin PIN_OFFS_PXCLK               ; Wait for PXCLK to go low
 irq set BYTE_IRQ_BASE
 .wrap
 
 % c-sdk {
-static inline pio_sm_config camera_pio_get_byte_sm_config(PIO pio, uint sm, uint offset, uint base_pin, uint bpp)
+static inline pio_sm_config camera_pio_get_byte_sm_config(PIO pio, uint sm, uint offset, uint base_pin_sm_s, uint bpp)
 {
     pio_sm_config c = camera_pio_byte_program_get_default_config(offset);
-    sm_config_set_in_pins(&c, base_pin);
+    sm_config_set_in_pins(&c, base_pin_sm_s);
     sm_config_set_in_shift(&c, true, true, bpp);
-
     return c;
 }
 %}
@@ -79,18 +70,23 @@ irq wait 0                             ; Signal the CPU that we're done, wait fo
 .wrap
 
 % c-sdk {
-static inline void camera_pio_init_gpios(PIO pio, uint sm, uint base_pin)
+static inline void camera_pio_init_gpios(PIO pio, uint sm, uint base_pin_sm_0, uint base_pin_sm_s)
 {
-    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, 12, false);
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin_sm_0, 2, false);
+    for (uint i = 0; i < 2; i++) {
+        pio_gpio_init(pio, i + base_pin_sm_0);
+    }
 
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin_sm_s, 9, false);
+    for (uint j = 0; j < 9; j++) {
+        pio_gpio_init(pio, j + base_pin_sm_s);
+    }
 }
 
-static inline pio_sm_config camera_pio_get_frame_sm_config(PIO pio, uint sm, uint offset, uint base_pin)
+static inline pio_sm_config camera_pio_get_frame_sm_config(PIO pio, uint sm, uint offset, uint base_pin_sm_0)
 {
     pio_sm_config c = camera_pio_frame_program_get_default_config(offset);
-    sm_config_set_in_pins(&c, base_pin);
-    sm_config_set_out_shift(&c, true, false, 0);
-
+    sm_config_set_in_pins(&c, base_pin_sm_0);
     return c;
 }
 

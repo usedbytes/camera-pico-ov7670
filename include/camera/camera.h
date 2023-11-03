@@ -6,6 +6,10 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #include "hardware/dma.h"
@@ -13,7 +17,7 @@
 
 #include "camera/ov7670.h"
 
-#define CAMERA_WIDTH_DIV8  80
+#define CAMERA_WIDTH_DIV8  60
 #define CAMERA_HEIGHT_DIV8 60
 
 #define CAMERA_MAX_N_PLANES 3
@@ -78,7 +82,8 @@ struct camera_platform_config {
 	uint xclk_pin;
 	uint xclk_divider;
 	// See camera.pio for pin order
-	uint base_pin;
+	uint base_pin_sm_0;
+	uint base_pin_sm_s;
 	// 3 DMA channels will be claimed starting at base_dma_channel.
 	// Set to -1 for dynamic assignment
 	int base_dma_channel;
@@ -134,5 +139,9 @@ struct camera_buffer *camera_buffer_alloc(uint32_t format, uint16_t width, uint1
 
 // Free a buffer previously allocated by camera_buffer_alloc.
 void camera_buffer_free(struct camera_buffer *buf);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __CAMERA_H__ */

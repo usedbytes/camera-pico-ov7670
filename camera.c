@@ -5,6 +5,7 @@
  */
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "pico/stdlib.h"
 #include "hardware/clocks.h"
@@ -61,7 +62,7 @@ static void camera_pio_init(struct camera *camera)
 	camera->shift_byte_offset = pio_add_program(pio, &camera_pio_byte_program);
 	camera->frame_offset = pio_add_program(pio, &camera_pio_frame_program);
 	for (int i = 0; i < 4; i++) {
-		camera_pio_init_gpios(pio, i, platform->base_pin);
+		camera_pio_init_gpios(pio, i, platform->base_pin_sm_0, platform->base_pin_sm_s);
 	}
 	pio->inte0 = (1 << (8 + CAMERA_PIO_FRAME_SM));
 
@@ -122,7 +123,7 @@ int camera_init(struct camera *camera, struct camera_platform_config *params)
 	};
 
 	// Some settling time for the clock
-	sleep_ms(300);
+	sleep_ms(30);
 
 	// Try and check that the camera is present
 	if (!camera_detect(params)) {
@@ -132,7 +133,7 @@ int camera_init(struct camera *camera, struct camera_platform_config *params)
 	// Note: Frame rate is ignored
 	status = OV7670_begin(&camera->driver_host, OV7670_COLOR_YUV, OV7670_SIZE_DIV8, 0.0);
 	if (status != OV7670_STATUS_OK) {
-		return -2;
+		return -1;
 	}
 
 	if (params->base_dma_channel >= 0) {
@@ -260,12 +261,11 @@ int camera_configure(struct camera *camera, uint32_t format, uint16_t width, uin
 	OV7670_set_size(platform, OV7670_SIZE_DIV8);
 
 	camera->config.sm_cfgs[CAMERA_PIO_FRAME_SM] =
-		camera_pio_get_frame_sm_config(platform->pio, CAMERA_PIO_FRAME_SM, camera->frame_offset, platform->base_pin);
+		camera_pio_get_frame_sm_config(platform->pio, CAMERA_PIO_FRAME_SM, camera->frame_offset, platform->base_pin_sm_0);
 
 	uint8_t num_planes = format_num_planes(format);
 	for (int i = 0; i < num_planes; i++) {
 		enum dma_channel_transfer_size xfer_size = camera_transfer_size(format, i);
-
 		dma_channel_config c = dma_channel_get_default_config(camera->dma_channels[i]);
 		channel_config_set_transfer_data_size(&c, xfer_size);
 		channel_config_set_read_increment(&c, false);
@@ -279,7 +279,7 @@ int camera_configure(struct camera *camera, uint32_t format, uint16_t width, uin
 		camera->config.dma_transfers[i] = format_plane_size(format, i, width, height) / xfer_bytes,
 
 		camera->config.sm_cfgs[i + 1] = camera_pio_get_byte_sm_config(platform->pio, i + 1,
-							camera->shift_byte_offset, platform->base_pin,
+							camera->shift_byte_offset, platform->base_pin_sm_s,
 							xfer_bytes * 8);
 	}
 
