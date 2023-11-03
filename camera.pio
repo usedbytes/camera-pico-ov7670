@@ -4,17 +4,19 @@
 ; SPDX-License-Identifier: BSD-3-Clause
 ;
 
-.define PUBLIC PIN_OFFS_D0       0
-.define PUBLIC PIN_OFFS_D1       1
-.define PUBLIC PIN_OFFS_D2       2
-.define PUBLIC PIN_OFFS_D3       3
-.define PUBLIC PIN_OFFS_D4       4
-.define PUBLIC PIN_OFFS_D5       5
-.define PUBLIC PIN_OFFS_D6       6
-.define PUBLIC PIN_OFFS_D7       7
-.define PUBLIC PIN_OFFS_VSYNC    8
-.define PUBLIC PIN_OFFS_HREF     9
-.define PUBLIC PIN_OFFS_PXCLK    10
+.define PUBLIC PIN_OFFS_VSYNC    0
+.define PUBLIC PIN_OFFS_HREF     1
+.define PUBLIC _                 2
+.define PUBLIC PIN_OFFS_PXCLK    3
+
+.define PUBLIC PIN_OFFS_D0       4
+.define PUBLIC PIN_OFFS_D1       5
+.define PUBLIC PIN_OFFS_D2       6
+.define PUBLIC PIN_OFFS_D3       7
+.define PUBLIC PIN_OFFS_D4       8
+.define PUBLIC PIN_OFFS_D5       9
+.define PUBLIC PIN_OFFS_D6       10
+.define PUBLIC PIN_OFFS_D7       11
 
 .define BYTE_IRQ_BASE            4
 
@@ -79,11 +81,8 @@ irq wait 0                             ; Signal the CPU that we're done, wait fo
 % c-sdk {
 static inline void camera_pio_init_gpios(PIO pio, uint sm, uint base_pin)
 {
-    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, (3 + 8), false);
+    pio_sm_set_consecutive_pindirs(pio, sm, base_pin, 12, false);
 
-    for (uint i = 0; i < (3 + 8); i++) {
-        pio_gpio_init(pio, i + base_pin);
-    }
 }
 
 static inline pio_sm_config camera_pio_get_frame_sm_config(PIO pio, uint sm, uint offset, uint base_pin)

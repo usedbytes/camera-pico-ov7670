@@ -13,11 +13,14 @@
 #include "camera/camera.h"
 #include "camera/format.h"
 
+
 #define CAMERA_PIO      pio0
 #define CAMERA_BASE_PIN 10
-#define CAMERA_XCLK_PIN 21
-#define CAMERA_SDA      0
-#define CAMERA_SCL      1
+
+#define CAMERA_XCLK_PIN 24
+
+#define CAMERA_SDA      2
+#define CAMERA_SCL      3
 
 static inline int __i2c_write_blocking(void *i2c_handle, uint8_t addr, const uint8_t *src, size_t len)
 {
@@ -41,8 +44,8 @@ int main() {
 	const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 	gpio_init(LED_PIN);
 	gpio_set_dir(LED_PIN, GPIO_OUT);
-
-	i2c_init(i2c0, 100000);
+	gpio_put(LED_PIN, 0);
+	i2c_init(i2c1, 100000);
 	gpio_set_function(CAMERA_SDA, GPIO_FUNC_I2C);
 	gpio_set_function(CAMERA_SCL, GPIO_FUNC_I2C);
 	gpio_pull_up(CAMERA_SDA);
@@ -52,7 +55,7 @@ int main() {
 	struct camera_platform_config platform = {
 		.i2c_write_blocking = __i2c_write_blocking,
 		.i2c_read_blocking = __i2c_read_blocking,
-		.i2c_handle = i2c0,
+		.i2c_handle = i2c1,
 
 		.pio = CAMERA_PIO,
 		.xclk_pin = CAMERA_XCLK_PIN,
@@ -60,13 +63,17 @@ int main() {
 		.base_pin = CAMERA_BASE_PIN,
 		.base_dma_channel = -1,
 	};
-
+	
 	int ret = camera_init(&camera, &platform);
-	if (ret) {
+	if (ret < 0) {
 		printf("camera_init failed: %d\n", ret);
-		return 1;
+		while (1) {
+			gpio_put(LED_PIN, 1);
+			sleep_ms(200);
+			gpio_put(LED_PIN, 0);
+			sleep_ms(200);
+		}
 	}
-
 	const uint16_t width = CAMERA_WIDTH_DIV8;
 	const uint16_t height = CAMERA_HEIGHT_DIV8;
 
@@ -75,16 +82,14 @@ int main() {
 	int frame_id = 0;
 	while (1) {
 		printf("[%03dx%03d] %04d$", width, height, frame_id);
-		gpio_put(LED_PIN, 1);
 		ret = camera_capture_blocking(&camera, buf, true);
-		gpio_put(LED_PIN, 0);
 		if (ret != 0) {
-			printf("Capture error: %d\n", ret);
+			gpio_put(LED_PIN, 1);
+			sleep_ms(500);
+			gpio_put(LED_PIN, 0);
 		} else {
-			// printf("Capture success\n");
 			int y, x;
 			for (y = 0; y < height; y++) {
-				char row[width];
 				for (x = 0; x < width; x++) {
 					uint8_t v = buf->data[0][buf->strides[0] * y + x];
 					char snum[4];
@@ -96,8 +101,7 @@ int main() {
 			frame_id++;
 			if (frame_id >= 1000)
 				frame_id = 0;
+			
 		}
-
-		sleep_ms(5000);
 	}
 }

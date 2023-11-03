@@ -2,6 +2,10 @@
     "files.associations": {
         "stdio.h": "c",
         "ov7670.h": "c",
-        "format.h": "c"
+        "format.h": "c",
+        "pico.h": "c",
+        "pio.h": "c",
+        "stdlib.h": "c",
+        "i2c.h": "c"
     }
 }
