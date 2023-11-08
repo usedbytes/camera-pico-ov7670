@@ -31,9 +31,6 @@ static inline int __i2c_read_blocking(void *i2c_handle, uint8_t addr, uint8_t *d
 	return i2c_read_blocking((i2c_inst_t *)i2c_handle, addr, dst, len, false);
 }
 
-// From http://www.paulbourke.net/dataformats/asciiart/
-const char charmap[] = " .:-=+*#%@";
-
 int main() {
 	stdio_init_all();
 
