@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 # rest of your project
 add_executable(camera_example
-    main.c
+    ../model/ml_model.cpp
+    main.cpp
 )
 pico_enable_stdio_usb(camera_example 1)
 # target_include_directories(camera_example PRIVATE ${CMAKE_CURRENT_LIST_DIR}/.. include/camera)
