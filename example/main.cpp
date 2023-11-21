@@ -37,7 +37,8 @@ static inline int __i2c_read_blocking(void *i2c_handle, uint8_t addr, uint8_t *d
 }
 
 
-int8_t* data_input = nullptr;
+uint8_t* data_input = nullptr;
+uint8_t* data_output = nullptr;
 float scale;
 int32_t zero_point;
 
@@ -53,8 +54,11 @@ int main() {
     }
     else {
         printf("|    ML model initialize OK    |\n");
-		data_input = (int8_t*)ml_model.input_data();
+		data_input = (uint8_t*)ml_model.input_data();
 		printf("Size input: %d, ", sizeof(data_input));
+		data_input = (uint8_t*)ml_model.output_data();
+		printf("Size input: %d, ", sizeof(data_input));
+
 		scale = ml_model.input_scale(); 
 		printf("Scale: %f, ",scale);
 		zero_point = ml_model.input_zero_point();
@@ -120,7 +124,8 @@ int main() {
 					// printf(" %s", snum);
 					start = time_us_64();
 					data_input[buf->strides[0] * y + x] = buf->data[0][buf->strides[0] * y + x];
-					printf("Predict: %f == Time: %d us\n", prediction, time_taken);
+					ml_model.predict();
+					printf("Predict: %f == Time: %d us\n", prediction, time_us_64() - start);
 					memset(data_input, 0, sizeof(data_input));
 				}
 			}
