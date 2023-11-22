@@ -86,18 +86,33 @@ void* MLModel::input_data()
     return _input_tensor->data.data;
 }
 
-float MLModel::predict()
+
+void* MLModel::output_data()
 {
+    if (_output_tensor == NULL) {
+        return NULL;
+    }
+
+    return _output_tensor->data.data;
+}
+
+int MLModel::predict(int8_t* data_in, int8_t* data_out)
+{
+    for (int inp = 0; inp < _input_tensor->bytes; inp++){
+        _input_tensor->data.int8[inp] = data_in[inp];
+    }
+
     TfLiteStatus invoke_status = _interpreter->Invoke();
 
     if (invoke_status != kTfLiteOk) {
-        return NAN;
+        return 0;
     }
 
-    float y_quantized = _output_tensor->data.int8[0];
-    float y = (y_quantized - _output_tensor->params.zero_point) * _output_tensor->params.scale;
-
-    return y;
+    for(int out = 0; out < _output_tensor->bytes; out++){
+        int8_t y_quantized = _output_tensor->data.int8[out];
+        *(data_out+out) = (y_quantized - _output_tensor->params.zero_point) * _output_tensor->params.scale;
+    }
+    return 1;
 }
 
 float MLModel::input_scale() const
@@ -108,6 +123,26 @@ float MLModel::input_scale() const
 
     return _input_tensor->params.scale;
 }
+
+int MLModel::input_size() const
+{
+    if (_input_tensor == NULL) {
+        return NAN;
+    }
+
+    return _input_tensor->bytes;
+}
+
+
+int MLModel::output_size() const
+{
+    if (_output_tensor == NULL) {
+        return NAN;
+    }
+
+    return _output_tensor->bytes;
+}
+
 
 int32_t MLModel::input_zero_point() const
 {

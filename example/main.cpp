@@ -37,10 +37,12 @@ static inline int __i2c_read_blocking(void *i2c_handle, uint8_t addr, uint8_t *d
 }
 
 
-uint8_t* data_input = nullptr;
-uint8_t* data_output = nullptr;
+int8_t* data_input = nullptr;
+int8_t* data_output = nullptr;
 float scale;
 int32_t zero_point;
+int size_input;
+int size_output; 
 
 int main() {
 	stdio_init_all();
@@ -54,16 +56,15 @@ int main() {
     }
     else {
         printf("|    ML model initialize OK    |\n");
-		data_input = (uint8_t*)ml_model.input_data();
-		printf("Size input: %d, ", sizeof(data_input));
-		data_input = (uint8_t*)ml_model.output_data();
-		printf("Size input: %d, ", sizeof(data_input));
+		size_input = ml_model.input_size();
+		printf("Size input: %d, ", size_input);
+		size_output = ml_model.output_size();
+		printf("Size output: %d, ", size_output);
 
 		scale = ml_model.input_scale(); 
 		printf("Scale: %f, ",scale);
 		zero_point = ml_model.input_zero_point();
 		printf("Zero Point: %d\r\n", zero_point);
-
     }
 
 	const uint LED_PIN = PICO_DEFAULT_LED_PIN;
@@ -105,6 +106,9 @@ int main() {
 
 	struct camera_buffer *buf = camera_buffer_alloc(FORMAT_YUV422, width, height);
 	assert(buf);
+	data_input = (int8_t*)malloc(size_input);
+	data_output = (int8_t*)malloc(size_output);
+
 	int frame_id = 0;
 	uint64_t start = 0;
 	while (1) {
@@ -118,15 +122,14 @@ int main() {
 			int y, x;
 			for (y = 0; y < height; y++) {
 				for (x = 0; x < width; x++) {
-					// uint8_t v = buf->data[0][buf->strides[0] * y + x];
-					// char snum[4];
-    				// int n = sprintf(snum, "%d", v);
-					// printf(" %s", snum);
 					start = time_us_64();
-					data_input[buf->strides[0] * y + x] = buf->data[0][buf->strides[0] * y + x];
-					ml_model.predict();
-					printf("Predict: %f == Time: %d us\n", prediction, time_us_64() - start);
-					memset(data_input, 0, sizeof(data_input));
+					data_input[buf->strides[0] * y + x] = buf->data[0][buf->strides[0] * y + x] + zero_point;
+					if (ml_model.predict(data_input, data_output) > 0)
+						printf("Predict Time: %d us\n", time_us_64() - start);
+					else
+						printf("Predict Fail\n");
+
+					memset(data_input, 0, size_input);
 				}
 			}
 			// printf("\n");
