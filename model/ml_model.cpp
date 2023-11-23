@@ -116,7 +116,7 @@ int MLModel::predict(int8_t* data_in, int8_t* data_out, float thr)
         if (data >= thr)
             *(data_out+out) = 1;
         else
-            *(data_out+out) = y_quantized;
+            *(data_out+out) = 0;
     }
     return 1;
 }

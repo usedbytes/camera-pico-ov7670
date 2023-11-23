@@ -48,6 +48,8 @@ int size_input;
 int size_output; 
 
 int main() {
+	int frame_id = 0;
+	uint64_t start = 0;
 	stdio_init_all();
 
 	// Wait some time for USB serial connection
@@ -117,9 +119,9 @@ int main() {
 	data_input = (int8_t*)malloc(size_input);
 	data_output = (int8_t*)malloc(size_output);
 
-	int frame_id = 0;
-	uint64_t start = 0;
+	memset(data_input, 0, size_input);
 	while (1) {
+		printf("[%03dx%03d] %04d$", width, height, frame_id);
 		ret = camera_capture_blocking(&camera, buf, true);
 		if (ret != 0) {
 			gpio_put(LED_PIN, 1);
@@ -129,25 +131,29 @@ int main() {
 			int y, x, i, j;
 			for (y = 0; y < height; y++) {
 				for (x = 0; x < width; x++) {
-					data_input[buf->strides[0] * y + x] = buf->data[0][buf->strides[0] * y + x] + zero_point;
+					data_input[64 * y + x] = buf->data[0][buf->strides[0] * y + x] + zero_point;
+					uint8_t v = buf->data[0][buf->strides[0] * y + x];
+					char snum[4];
+    				int n = sprintf(snum, "%d", v);
+					printf(" %s", snum);
 				}
 			}
+			printf("\n");
+			printf("{%03dx%03d} %04d$", 8, 8, frame_id);
 			start = time_us_64();
 			if (ml_model.predict(data_input, data_output, 0.4) > 0) {
 				
 				for (i = 0; i < 8; i++) {
 					for (j = 0; j < 8; j++) { 
-						printf("%d ", data_output[i * 8 + j]);
+						printf(" %d", data_output[i * 8 + j]);
 					}
-					printf("\n");
 				}
-				// printf("Predict %d get time: %d us\n", s, time_us_64() - start);
 			}
 			else
 				printf("Predict Fail\n");
 
 			memset(data_input, 0, size_input);
-			printf("------------------------------\n");
+			printf("\n");
 			frame_id++;
 			if (frame_id >= 1000)
 				frame_id = 0;
