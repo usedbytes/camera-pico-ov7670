@@ -5128,9 +5128,9 @@ Discarded input sections
                 0x0000000000000000       0x3e example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj
  .text.i2c_read_timeout_per_char_us
                 0x0000000000000000       0x3e example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj
- .text          0x0000000000000000        0x0 /tmp/ccX9LglE.o
- .data          0x0000000000000000        0x0 /tmp/ccX9LglE.o
- .bss           0x0000000000000000        0x0 /tmp/ccX9LglE.o
+ .text          0x0000000000000000        0x0 /tmp/ccrMjYbm.o
+ .data          0x0000000000000000        0x0 /tmp/ccrMjYbm.o
+ .bss           0x0000000000000000        0x0 /tmp/ccrMjYbm.o
  .text          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a(guard.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a(guard.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a(guard.o)
@@ -6353,7 +6353,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
 .boot2          0x0000000010000000      0x100
                 0x0000000010000000                __boot2_start__ = .
  *(.boot2)
- .boot2         0x0000000010000000      0x100 /tmp/ccX9LglE.o
+ .boot2         0x0000000010000000      0x100 /tmp/ccrMjYbm.o
                 0x0000000010000100                __boot2_end__ = .
                 0x0000000000000001                ASSERT (((__boot2_end__ - __boot2_start__) == 0x100), ERROR: Pico second stage bootloader must be 256 bytes in size)
 
@@ -11376,7 +11376,7 @@ LOAD example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/lib/tinyus
 LOAD example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj
 LOAD example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj
 LOAD lib/pico-tflmicro/libpico-tflmicro.a
-LOAD /tmp/ccX9LglE.o
+LOAD /tmp/ccrMjYbm.o
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a
 START GROUP
@@ -11669,7 +11669,7 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000000000016c8       0x2c example/CMakeFiles/camera_example.dir/home/ai-team/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj
  .ARM.attributes
-                0x00000000000016f4       0x22 /tmp/ccX9LglE.o
+                0x00000000000016f4       0x22 /tmp/ccrMjYbm.o
  .ARM.attributes
                 0x0000000000001716       0x2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a(eh_alloc.o)
  .ARM.attributes

@@ -11,6 +11,6 @@ CTestTestfile.cmake
 _deps
 
 build/
-!build/example/**
+!build/example/
 
 
