@@ -1,0 +1,320 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/libCMSISDSPQuaternionMath.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_compile_options",
+			"compilerSpecificCompileOptions",
+			"configcore",
+			"configLib",
+			"target_compile_definitions",
+			"configDsp",
+			"target_include_directories",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/CMakeLists.txt",
+			"lib/CMSIS_5/CMSIS/DSP/Toolchain/GCC.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configCore.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configLib.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/Source/configDsp.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 27,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 299,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 35,
+				"parent" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 39,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 262,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 251,
+				"parent" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 10,
+				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 14,
+				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 250,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 2,
+				"line" : 249,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 39,
+				"parent" : 9
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-mcpu=cortex-m0plus -mthumb -Og -g  "
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-mthumb"
+				},
+				{
+					"fragment" : "-std=gnu11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 7,
+					"define" : "ARMCM0"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "ARMCM0P"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "ARM_DSP_CONFIG_TABLES"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "ARM_MATH_LOOPUNROLL"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "CORTEXM"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 13,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/PrivateInclude"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/Include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		}
+	],
+	"id" : "CMSISDSPQuaternionMath::@8e518f5941d0c4440caa",
+	"name" : "CMSISDSPQuaternionMath",
+	"nameOnDisk" : "libCMSISDSPQuaternionMath.a",
+	"paths" : 
+	{
+		"build" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions",
+		"source" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_norm_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 16,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_inverse_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 17,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_conjugate_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 18,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_normalize_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 19,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_product_single_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 20,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion_product_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 21,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_quaternion2rotation_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 22,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/QuaternionMathFunctions/arm_rotation2quaternion_f32.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

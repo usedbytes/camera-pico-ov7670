@@ -1,0 +1,63 @@
+
+/home/ai-team/Project/camera-pico-ov7670/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000004c  20041f00  20041f00  00001f00  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .ARM.attributes 00000022  00000000  00000000  00001f4c  2**0
+                  CONTENTS, READONLY
+  2 .debug_line   0000010c  00000000  00000000  00001f6e  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  3 .debug_info   00000026  00000000  00000000  0000207a  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  4 .debug_abbrev 00000014  00000000  00000000  000020a0  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_aranges 00000020  00000000  00000000  000020b8  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_str    00000086  00000000  00000000  000020d8  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+/home/ai-team/Project/camera-pico-ov7670/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20041f00 <_stage2_boot>:
+20041f00:	b500      	push	{lr}
+20041f02:	4b0c      	ldr	r3, [pc, #48]	; (20041f34 <literals>)
+20041f04:	2100      	movs	r1, #0
+20041f06:	6099      	str	r1, [r3, #8]
+20041f08:	2104      	movs	r1, #4
+20041f0a:	6159      	str	r1, [r3, #20]
+20041f0c:	490a      	ldr	r1, [pc, #40]	; (20041f38 <literals+0x4>)
+20041f0e:	6019      	str	r1, [r3, #0]
+20041f10:	490a      	ldr	r1, [pc, #40]	; (20041f3c <literals+0x8>)
+20041f12:	480b      	ldr	r0, [pc, #44]	; (20041f40 <literals+0xc>)
+20041f14:	6001      	str	r1, [r0, #0]
+20041f16:	2100      	movs	r1, #0
+20041f18:	6059      	str	r1, [r3, #4]
+20041f1a:	2101      	movs	r1, #1
+20041f1c:	6099      	str	r1, [r3, #8]
+
+20041f1e <check_return>:
+20041f1e:	bc01      	pop	{r0}
+20041f20:	2800      	cmp	r0, #0
+20041f22:	d000      	beq.n	20041f26 <vector_into_flash>
+20041f24:	4700      	bx	r0
+
+20041f26 <vector_into_flash>:
+20041f26:	4807      	ldr	r0, [pc, #28]	; (20041f44 <literals+0x10>)
+20041f28:	4907      	ldr	r1, [pc, #28]	; (20041f48 <literals+0x14>)
+20041f2a:	6008      	str	r0, [r1, #0]
+20041f2c:	c803      	ldmia	r0, {r0, r1}
+20041f2e:	f380 8808 	msr	MSP, r0
+20041f32:	4708      	bx	r1
+
+20041f34 <literals>:
+20041f34:	18000000 	.word	0x18000000
+20041f38:	001f0300 	.word	0x001f0300
+20041f3c:	03000218 	.word	0x03000218
+20041f40:	180000f4 	.word	0x180000f4
+20041f44:	10000100 	.word	0x10000100
+20041f48:	e000ed08 	.word	0xe000ed08

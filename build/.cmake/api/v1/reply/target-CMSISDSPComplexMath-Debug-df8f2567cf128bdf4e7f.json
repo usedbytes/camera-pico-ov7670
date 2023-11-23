@@ -1,0 +1,560 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/libCMSISDSPComplexMath.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_compile_options",
+			"compilerSpecificCompileOptions",
+			"configcore",
+			"configLib",
+			"target_compile_definitions",
+			"configDsp",
+			"target_include_directories",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/CMakeLists.txt",
+			"lib/CMSIS_5/CMSIS/DSP/Toolchain/GCC.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configCore.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configLib.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/Source/configDsp.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 27,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 299,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 35,
+				"parent" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 39,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 262,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 251,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 10,
+				"parent" : 10
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 14,
+				"parent" : 10
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 250,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 2,
+				"line" : 249,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 39,
+				"parent" : 10
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 67,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 33,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 37,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 40,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 44,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 45,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 46,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 48,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 51,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 52,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 53,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 54,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 55,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 58,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 59,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 60,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 61,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 62,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 63,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-mcpu=cortex-m0plus -mthumb -Og -g  "
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-mthumb"
+				},
+				{
+					"fragment" : "-std=gnu11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 7,
+					"define" : "ARMCM0"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "ARMCM0P"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "ARM_ALL_FAST_TABLES"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "ARM_DSP_CONFIG_TABLES"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "ARM_MATH_LOOPUNROLL"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "CORTEXM"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 14,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/PrivateInclude"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/Include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23
+			]
+		}
+	],
+	"id" : "CMSISDSPComplexMath::@4e8a18c976b33cd4bc00",
+	"name" : "CMSISDSPComplexMath",
+	"nameOnDisk" : "libCMSISDSPComplexMath.a",
+	"paths" : 
+	{
+		"build" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions",
+		"source" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 17,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 18,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 19,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 20,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 21,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 22,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 23,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 24,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 25,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 26,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 27,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 28,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 29,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 30,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 31,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 32,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 33,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 34,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 35,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 36,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 37,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 38,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 39,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 40,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_f16.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

@@ -1,0 +1,533 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/libCMSISDSPSupport.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_compile_options",
+			"compilerSpecificCompileOptions",
+			"configcore",
+			"configLib",
+			"target_compile_definitions",
+			"configDsp",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/CMakeLists.txt",
+			"lib/CMSIS_5/CMSIS/DSP/Toolchain/GCC.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configCore.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/configLib.cmake",
+			"lib/CMSIS_5/CMSIS/DSP/Source/configDsp.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 27,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 299,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 35,
+				"parent" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 39,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 262,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 251,
+				"parent" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 10,
+				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 4,
+				"line" : 14,
+				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 250,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 2,
+				"line" : 249,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 39,
+				"parent" : 9
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-mcpu=cortex-m0plus -mthumb -Og -g  "
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-mthumb"
+				},
+				{
+					"fragment" : "-std=gnu11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 7,
+					"define" : "ARMCM0"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "ARMCM0P"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "ARM_DSP_CONFIG_TABLES"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "ARM_MATH_LOOPUNROLL"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "CORTEXM"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 13,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/PrivateInclude"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/ai-team/Project/camera-pico-ov7670/lib/CMSIS_5/CMSIS/DSP/Include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39
+			]
+		}
+	],
+	"id" : "CMSISDSPSupport::@a705cbe48853f0a6d3ae",
+	"name" : "CMSISDSPSupport",
+	"nameOnDisk" : "libCMSISDSPSupport.a",
+	"paths" : 
+	{
+		"build" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions",
+		"source" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_barycenter_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_barycenter_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_bitonic_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_bubble_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_copy_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_copy_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_copy_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_copy_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_copy_q7.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_f16_to_float.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_f16_to_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_fill_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_fill_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_fill_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_fill_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_fill_q7.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_float_to_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q7.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_heap_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_insertion_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_merge_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_merge_sort_init_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q15_to_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q15_to_float.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q15_to_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q15_to_q7.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q31_to_float.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q31_to_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q31_to_q7.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q7_to_float.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q7_to_q15.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_q7_to_q31.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_quick_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_selection_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_sort_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_sort_init_f32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_weighted_sum_f16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_weighted_sum_f32.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}
