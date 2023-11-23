@@ -10,8 +10,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-build/*
-!build/example/*
+build/**
+!build/example
 
 
 
