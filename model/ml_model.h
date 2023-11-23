@@ -22,9 +22,11 @@ class MLModel {
         void* output_data();
         int input_size() const;
         int output_size() const;
-        int predict(int8_t *data_input, int8_t *data_output);
+        int predict(int8_t *data_input, int8_t *data_output, float thr);
         float input_scale() const;
         int32_t input_zero_point() const;
+        float output_scale() const;
+        int32_t output_zero_point() const;
     private:
         const unsigned char* _tflite_model;
         int _tensor_arena_size;

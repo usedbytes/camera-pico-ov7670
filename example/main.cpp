@@ -41,6 +41,9 @@ int8_t* data_input = nullptr;
 int8_t* data_output = nullptr;
 float scale;
 int32_t zero_point;
+
+float output_scale;
+int32_t output_zero_point;
 int size_input;
 int size_output; 
 
@@ -62,9 +65,14 @@ int main() {
 		printf("Size output: %d, ", size_output);
 
 		scale = ml_model.input_scale(); 
-		printf("Scale: %f, ",scale);
+		printf("Input Scale: %f, ",scale);
 		zero_point = ml_model.input_zero_point();
-		printf("Zero Point: %d\r\n", zero_point);
+		printf("Input Zero Point: %d\r\n", zero_point);
+
+		output_scale = ml_model.output_scale(); 
+		printf("Output Scale: %f, ",output_scale);
+		output_zero_point = ml_model.output_zero_point();
+		printf("Output Zero Point: %d\r\n", output_zero_point);
     }
 
 	const uint LED_PIN = PICO_DEFAULT_LED_PIN;
@@ -112,27 +120,34 @@ int main() {
 	int frame_id = 0;
 	uint64_t start = 0;
 	while (1) {
-		// printf("[%03dx%03d] %04d$", width, height, frame_id);
 		ret = camera_capture_blocking(&camera, buf, true);
 		if (ret != 0) {
 			gpio_put(LED_PIN, 1);
 			sleep_ms(500);
 			gpio_put(LED_PIN, 0);
 		} else {
-			int y, x;
+			int y, x, i, j;
 			for (y = 0; y < height; y++) {
 				for (x = 0; x < width; x++) {
-					start = time_us_64();
 					data_input[buf->strides[0] * y + x] = buf->data[0][buf->strides[0] * y + x] + zero_point;
-					if (ml_model.predict(data_input, data_output) > 0)
-						printf("Predict Time: %d us\n", time_us_64() - start);
-					else
-						printf("Predict Fail\n");
-
-					memset(data_input, 0, size_input);
 				}
 			}
-			// printf("\n");
+			start = time_us_64();
+			if (ml_model.predict(data_input, data_output, 0.4) > 0) {
+				
+				for (i = 0; i < 8; i++) {
+					for (j = 0; j < 8; j++) { 
+						printf("%d ", data_output[i * 8 + j]);
+					}
+					printf("\n");
+				}
+				// printf("Predict %d get time: %d us\n", s, time_us_64() - start);
+			}
+			else
+				printf("Predict Fail\n");
+
+			memset(data_input, 0, size_input);
+			printf("------------------------------\n");
 			frame_id++;
 			if (frame_id >= 1000)
 				frame_id = 0;
