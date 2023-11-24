@@ -18,8 +18,8 @@
 
 #define CAMERA_PIO           pio0
 #define CAMERA_BASE_PIN_SM_0 10
-#define CAMERA_BASE_PIN_SM_s 12
-#define CAMERA_XCLK_PIN      21
+#define CAMERA_BASE_PIN_SM_s 14
+#define CAMERA_XCLK_PIN      24
 #define CAMERA_SDA      2
 #define CAMERA_SCL      3
 
