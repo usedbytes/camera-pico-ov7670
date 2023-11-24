@@ -16,13 +16,16 @@
 #include "../model/tflite_model.h"
 #include "../model/ml_model.h"
 
-
 #define CAMERA_PIO           pio0
 #define CAMERA_BASE_PIN_SM_0 10
-#define CAMERA_BASE_PIN_SM_s 14
-#define CAMERA_XCLK_PIN      24
+#define CAMERA_BASE_PIN_SM_s 12
+#define CAMERA_XCLK_PIN      21
 #define CAMERA_SDA      2
 #define CAMERA_SCL      3
+
+#define THR_PREDICT 0.1
+#define THR_RATIO_FACE_PER_FRAME 0.1
+#define NUMBER_FRAME_CAL 10
 
 MLModel ml_model(tflite_model, 150 * 1024);
 
@@ -41,11 +44,17 @@ int8_t* data_input = nullptr;
 int8_t* data_output = nullptr;
 float scale;
 int32_t zero_point;
-
 float output_scale;
 int32_t output_zero_point;
 int size_input;
 int size_output; 
+uint8_t slick_row = 0;
+uint8_t slick_col = 0;
+int8_t visit[64] = {0};
+int8_t slick[NUMBER_FRAME_CAL][64] = {0};
+int8_t res[64] = {0};
+
+int bfs(int8_t frame[64],int8_t mask[64], int sx, int sy);
 
 int main() {
 	int frame_id = 0;
@@ -141,23 +150,87 @@ int main() {
 			printf("\n");
 			printf("{%03dx%03d} %04d$", 8, 8, frame_id);
 			start = time_us_64();
-			if (ml_model.predict(data_input, data_output, 0.4) > 0) {
-				
-				for (i = 0; i < 8; i++) {
-					for (j = 0; j < 8; j++) { 
-						printf(" %d", data_output[i * 8 + j]);
+			if (ml_model.predict(data_input, data_output, THR_PREDICT) > 0) {
+				for (int s = 0; s < 8; s++) {
+					for (int e = 0; e < 8; e++) { 
+						printf(" %d", data_output[e * 8 + s]);
+						if(data_output[e * 8 + s] != 0 && visit[e * 8 + s] == 0)
+						slick[slick_row][slick_col] = bfs(data_output, visit, e, s);
+						slick_col += 1;
 					}
 				}
+				memset(visit, 0, 64);
+				slick_col = 0;
+				slick_row += 1;
 			}
 			else
 				printf("Predict Fail\n");
 
 			memset(data_input, 0, size_input);
 			printf("\n");
-			frame_id++;
-			if (frame_id >= 1000)
+			if(frame_id == NUMBER_FRAME_CAL){
+				printf("Small block has face: ");
+				for(int r = 0; r < NUMBER_FRAME_CAL; r++){
+					for(int c = 0; c < 64; c++){
+						res[c] += slick[r][c];
+					}
+				}
+				for(int c = 0; c < 64; c++){
+					float ratio = (float)res[c]/NUMBER_FRAME_CAL;
+					if(ratio > THR_RATIO_FACE_PER_FRAME){
+						printf("%.2f, ", ratio);
+						gpio_put(LED_PIN, 1);
+						sleep_ms(200);
+						gpio_put(LED_PIN, 0);
+						sleep_ms(200);
+					}
+				}
 				frame_id = 0;
+				slick_row = 0;
+				memset(res, 0, 64);
+				memset(slick, 0 , NUMBER_FRAME_CAL*64);
+			}
+			frame_id++;
+			// if (frame_id >= 1000)
+			// 	frame_id = 0;
 			
 		}
 	}
+}
+
+int bfs(int8_t frame[64], int8_t mask[64], int sx, int sy){
+	int moveX[] = {0, 0, 1, -1};
+	int moveY[] = {1, -1, 0, 0};
+	int u, v, x, y, countLoop = 0;
+	int n = 8;
+	int m = 8;
+	int numFrame = 1;
+	int queue[100];
+	queue[countLoop] = sx;
+	queue[countLoop + 1] = sy;
+	mask[n*sx+sy] = 1;
+	while(countLoop >= 0){
+		x = queue[countLoop];
+		y = queue[countLoop+1];
+		countLoop-=2;
+		for(int i = 0; i < 4; i++){
+			u = x + moveX[i];
+			v = y + moveY[i];
+			if((u > n) || (u < 1)){
+				continue;
+			}
+			if((v > m) || (v < 1)){
+				continue;
+			}
+			if((frame[n*u+v] != 0) && (mask[n*u+v] == 0)){
+				numFrame += 1;
+				mask[n*u+v] = 1;
+				countLoop+=2;
+				queue[countLoop] = u;
+				queue[countLoop + 1] = v;
+			}
+		}
+	}
+
+	return numFrame;
 }

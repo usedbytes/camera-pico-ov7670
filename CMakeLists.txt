@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 # initialize pico_sdk from GIT
 # (note this can come from environment, CMake cache etc)
-set(ENV{PICO_SDK_PATH} "/home/ai-team/pico/pico-sdk")
-
+# set(ENV{PICO_SDK_PATH} "/home/ai-team/pico/pico-sdk")
+set(ENV{PICO_SDK_PATH} "/home/ttb/raspberry-pi-pico/pico/pico-sdk")
 # pico_sdk_import.cmake is a single file copied from this SDK
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
